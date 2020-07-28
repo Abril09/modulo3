@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="editTextNumber"></string>
+    <string name="editTextNumber2"></string>
+    <string name="radioButton">Sumar</string>
+    <string name="radioButton2">Restar</string>
+    <string name="radioButton3">Multiplicar</string>
+    <string name="radioButton4">Dividir</string>
+    <string name="radioButton5">MOD</string>
+    <string name="radioButton6">Elevado</string>
+    <string name="button">EJECUTAR</string>
+    <string name="editTextNumber3">Resultado</string>
+</resources>
