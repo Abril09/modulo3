@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Fecha_Nac</string>
+    <string name="textView">Ingrese año de nacimiento</string>
+    <string name="editTextDate"></string>
+    <string name="button">Calcular</string>
+    <string name="textView2">tu edad es: </string>
+</resources>
