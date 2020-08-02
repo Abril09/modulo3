@@ -1,0 +1,67 @@
+AndroidManifest.xml: Este fichero describe la aplicación Android. Se define su nombre, paquete, icóno, estilos, etc. Se indican las actividades, las intenciones, los servicios y los proveedores de contenido de la aplicación. También se declaran los permisos que requerirá la aplicación. Se indica el paquete Java, la versión de la aplicación, etc.
+
+java: Carpeta que contiene el código fuente de la aplicación. Como puedes observar los ficheros Java se almacenan en carpetas según el nombre de su paquete.
+
+MainActivity: Clase con el código de la actividad inicial.
+
+ExampleInstrumentTest: Clase pensada para insertar código de testeo de la aplicación.
+
+ExampleUnitTest: Clase para insertar test unitarios sobre otras aplicaciones.
+
+res: Carpeta que contiene los recursos usados por la aplicación.
+
+drawable: En esta carpeta se almacenan los ficheros de imágenes (JPG o PNG) y descriptores de imágenes en XML.
+
+mipmap: En una carpeta guardaremos el icono de la aplicación. En el proyecto se ha incluido el fichero ic_launcher.png que será utilizado como icono de la aplicación. Observa cómo este recurso se ha añadido en seis versiones diferentes. Como veremos en el siguiente capítulo, usaremos un sufijo especial si queremos tener varias versiones de un recurso, de forma que solo se cargue al cumplirse una determinada condición. Por ejemplo: (hdpi) significa que solo ha de cargar los recursos contenidos en esta carpeta cuando el dispositivo donde se instala la aplicación tenga una densidad gráfica alta (180- dpi); (mdpi) se utilizará con densidad gráfica alta (180- dpi). Si pulsas sobre las diferentes versiones del recurso, observarás como se trata del mismo icono pero con más o menos resolución de forma que, en función de la densidad gráfica del dispositivo, se ocupe un tamaño similar en la pantalla. Véase el apartado 2.6 del anexo E para más detalles. El fichero ic_launcher_round.png es similar pero para cuando se quieren usar iconos redondos.
+ 
+
+layout: Contiene ficheros XML con vistas de la aplicación. Las vistas nos permitirán configurar las diferentes pantallas que compondrán la interfaz de usuario de la aplicación. Se utiliza un formato similar al HTML usado para diseñar páginas web. Se tratarán en el siguiente capítulo.
+
+menu:Ficheros XML con los menús de cada actividad. En el proyecto no hay ningún menú por lo que no se muestra esta carpeta.
+
+values: También utilizaremos ficheros XML para indicar valores usados en la aplicación, de esta manera podremos cambiarlos desde estos ficheros sin necesidad de ir al código fuente. En colors.xml se definen los tres colores primarios de la aplicación. En dimens.xml, se pueden definir dimensiones como el margen por defecto o el ancho de los botones.  En el fichero strings.xml, tendrás que definir todas las cadenas de caracteres de tu aplicación. Creando recursos alternativos resultará muy sencillo traducir una aplicación a otro idioma. Finalmente en styles.xml, podrás definir los estilos y temas de tu aplicación. Se estudian en el siguiente capítulo.
+
+anim: Contiene ficheros XML con animaciones de vistas (Tween). Las animaciones se describen al final del capítulo 4.
+
+animator: Contiene ficheros XML con animaciones de propiedades.
+
+xml: Otros ficheros XML requeridos por la aplicación.
+
+raw: Ficheros adicionales que no se encuentran en formato XML.
+
+Gradle Scripts: En esta carpeta se almacenan una serie de ficheros Gradle que permiten compilar y construir la aplicación. Observa como algunos hacen referencia al módulo app y el resto son para configurar todo el proyecto. El fichero más importante es build.gradle (Module:app) que es donde se configuran las opciones de compilación del módulo:
+
+apply plugin: 'com.android.application'
+
+android {
+   compileSdkVersion 29
+   buildToolsVersion "29.0.3"
+   defaultConfig {
+      applicationId "com.example.myapplication"
+      minSdkVersion 19
+      targetSdkVersion 29
+      versionCode 1
+      versionName "1.0"
+      testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+   }
+   buildTypes {
+      release {
+         minifyEnabled false
+         proguardFiles getDefaultProguardFile('proguard-android.txt'),'pr… 
+      }
+   }
+}
+
+dependencies {
+   implementation fileTree(dir: 'libs', include: ['*.jar'])
+   implementation 'androidx.appcompat:appcompat:1.1.0'
+   implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+   testImplementation 'junit:junit:4.12'
+   androidTestImplementation 'androidx.test:runner:1.1.1'
+   androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+El primer parámetro que podemos configurar es compileSdkVersion que nos permite definir la versión del sdk con la que compilamos la aplicación. Las nuevas versiones no solo añaden funcionalidades al API, también añaden mejoras en los procesos. Por ejemplo, a partir de la versión 3.0 (API 11) solo se permite el acceso a Internet desde un hilo auxiliar[2].  applicationId suele coincidir con el nombre del paquete Java creado para la aplicación. Se utiliza como identificador único de la aplicación, de forma que no se permite instalar una aplicación si ya existe otra con el mismo id. minSdkVersion especifica el nivel mínimo de API que requiere la aplicación. Es un parámetro de gran importancia, la aplicación no podrá ser instalada en dispositivos con versiones anteriores y solo podremos usar las funcionalidades del API hasta este nivel (con excepción de las librerías de compatibilidad). targetSdkVersion indica la versión más alta con la que se ha puesto a prueba la aplicación. Cuando salgan nuevas versiones del SDK tendrás que comprobar la aplicación con estas versiones y actualizar el valor. versionCode y versionName indica la versión de tu aplicación. Cada vez que publiques una nueva versión incrementa en uno el valor de versionCode y aumenta el valor de versionName según la importancia de la actualización. Si es una actualización menor el nuevo valor podría ser "1.1" y si es mayor "2.0".
+
+Dentro de buildTypes se añaden otras configuraciones dependiendo del tipo de compilación que queramos (relase para distribución, debug para depuración, etc.). Los comandos que aparecen configuran la ofuscación de código. Para más información leer el capítulo «Ingeniería Inversa en Android» de El Gran Libro de Android Avanzado.
+
+Un apartado importante es el de dependencies. En él has de indicar todas las librerías que han de ser incluidas en nuestro proyecto. Si necesitas usar alguna librería de compatibilidad adicional has de incluirla aquí.
